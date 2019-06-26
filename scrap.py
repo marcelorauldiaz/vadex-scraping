@@ -4,7 +4,9 @@ from bs4 import BeautifulSoup as BS
 f = open('/home/marcelo/Dropbox/alfabeta/Mayo/test-name.txt', 'r')
 for line in f:
     print (line)
-    page = requests.get("http://www.alfabeta.net/precio/"+line+".html")
+    url = "http://www.alfabeta.net/precio/"+line
+    print url
+    page = requests.get(url)
     status_code = page.status_code
     if status_code == 200:
         print("OK")
@@ -12,7 +14,7 @@ for line in f:
         entradas = soup.find_all('table', {'class': 'presentacion'})
         for i, entrada in enumerate(entradas):
             presentacion = entrada.find('td', 'tddesc').getText()
-            print "%s" % (presentacion)
+            print (presentacion)
     else:
         print "Status Code %d" % status_code
 # price = soup.find_all(class_="tdprecio")
