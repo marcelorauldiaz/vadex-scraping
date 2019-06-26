@@ -3,14 +3,17 @@ from bs4 import BeautifulSoup as BS
 
 f = open('/home/marcelo/Dropbox/alfabeta/Mayo/test-name.txt', 'r')
 for line in f:
-    print (line)
-    url = "http://www.alfabeta.net/precio/"+line
-    print url
-    page = requests.get(url)
-    status_code = page.status_code
+    print (repr(line))
+   
+    URL = ""+line
+    #url="http://www.alfabeta.net/precio/tamoxis.html"
+    print URL 
+    req = requests.get(URL)
+    status_code = req.status_code
+    print status_code
     if status_code == 200:
         print("OK")
-        soup = BS(page.content, 'html.parser')
+        soup = BS(req.text, 'html.parser')
         entradas = soup.find_all('table', {'class': 'presentacion'})
         for i, entrada in enumerate(entradas):
             presentacion = entrada.find('td', 'tddesc').getText()
