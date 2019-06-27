@@ -1,11 +1,11 @@
 import requests
 from bs4 import BeautifulSoup as BS
 import array
-pr= []
-pc= []
-ii=1
-#o = open('/home/marcelo/Dropbox/alfabeta/Mayo/vadex-result.txt', 'w+')
-f = open('/home/marcelo/Dropbox/alfabeta/Mayo/test-name.txt', 'r')
+#pr= []
+#pc= []
+registro=1
+o = open('/home/marcelo/Dropbox/alfabeta/Mayo/vadex-result.txt', 'w+')
+f = open('/home/marcelo/Dropbox/alfabeta/Mayo/name-html.txt', 'r')
 for line in f:
     req = requests.get(line.strip())
     status_code = req.status_code
@@ -40,20 +40,19 @@ for line in f:
         for p, entrada in enumerate(entradas):
             presentacion = entrada.find('td', 'tddesc').getText()
             precio = entrada.find('td', 'tdprecio').getText()
-            pr.append(presentacion)
-            pc.append(precio)
+            #pr.append(presentacion)
+            #pc.append(precio)
             print "presentacion:"+presentacion
             print "precio:"+precio
-
-        if len(pr)>1:
-            print "tiene mas de una presentacion"
-        #No tenemos: tipoventa, via, preciopami
-        #id@name@presentacion@laboratorio@tipoventa@droga@accion@precio@via@true@preciopami
-       # o.write("%s@%s@%s@%s@-@%s@%s@%s@-@true@-"%(ii.str(),name,
-        pc[:]=[]
-        pr[:]=[]
-        ii=ii+1
-        if ii==5:
-          exit
+            #No tenemos: tipoventa, via, preciopami
+            #id@name@presentacion@laboratorio@tipoventa@droga@accion@precio@via@true@preciopami
+            o.write("%s@%s@%s@%s@@%s@%s@%s@@true@\n" % (str(registro).encode('ascii', 'ignore'), name.encode('ascii', 'ignore'), presentacion.encode('ascii', 'ignore'), laboratorio.encode('ascii', 'ignore'), droga.encode('ascii', 'ignore'), accion.encode('ascii', 'ignore'), precio.encode('ascii', 'ignore')) )
+        registro = registro + 1
+        if registro == 5:
+            exit
+        #pc[:]=[]
+        #pr[:]=[]
+        #cont=cont+1
     else:
         print "Status Code %d" % status_code
+o.close()
