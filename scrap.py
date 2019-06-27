@@ -47,7 +47,7 @@ for line in f:
             #No tenemos: tipoventa, via, preciopami
             #id@name@presentacion@laboratorio@tipoventa@droga@accion@precio@via@true@preciopami
             o.write("%s@%s@%s@%s@@%s@%s@%s@@true@\n" % (str(registro).encode('ascii', 'ignore'), name.encode('ascii', 'ignore'), presentacion.encode('ascii', 'ignore'), laboratorio.encode('ascii', 'ignore'), droga.encode('ascii', 'ignore'), accion.encode('ascii', 'ignore'), precio.encode('ascii', 'ignore')) )
-        registro = registro + 1
+            registro = registro + 1
         #pc[:]=[]
         #pr[:]=[]
         #cont=cont+1
