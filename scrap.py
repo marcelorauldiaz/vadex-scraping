@@ -4,16 +4,16 @@ import array
 #pr= []
 #pc= []
 registro=1
-o = open('/home/marcelo/Dropbox/alfabeta/Mayo/vadex-result.txt', 'w+')
-f = open('/home/marcelo/Dropbox/alfabeta/Mayo/name-html.txt', 'r')
+o = open('/home/roxana/Dropbox/alfabeta/Mayo/vadex-result.txt', 'w+')
+f = open('/home/roxana/Dropbox/alfabeta/Mayo/name-html.txt', 'r')
 for line in f:
     req = requests.get(line.strip())
     status_code = req.status_code
-    print "***************************************" 
+    print "***************************************"
     if status_code == 200:
         print "Producto:"+line.strip()
         soup = BS(req.text, 'html.parser')
-        
+
         entradas = soup.find_all('table', {'class': 'estandarc'})
         for i, entrada in enumerate(entradas):
              laboratorio = entrada.find('span', 'defecto').getText()
@@ -29,13 +29,13 @@ for line in f:
         for i, entrada in enumerate(entradas):
              droga = entrada.find('span', 'defecto').getText()
              print "droga:"+droga
-       
+
         entradas = soup.find_all('td', {'class': 'textor'})
         for i, entrada in enumerate(entradas):
             if i==1:
                 accion  = entrada.find('span', 'defecto').getText()
                 print "accion:"+accion
- 
+
         entradas = soup.find_all('table', {'class': 'presentacion'})
         for p, entrada in enumerate(entradas):
             presentacion = entrada.find('td', 'tddesc').getText()
@@ -46,7 +46,7 @@ for line in f:
             print "precio:"+precio
             #No tenemos: tipoventa, via, preciopami
             #id@name@presentacion@laboratorio@tipoventa@droga@accion@precio@via@true@preciopami
-            o.write("%s@%s@%s@%s@@%s@%s@%s@@true@\n" % (str(registro).encode('ascii', 'ignore'), name.encode('ascii', 'ignore'), presentacion.encode('ascii', 'ignore'), laboratorio.encode('ascii', 'ignore'), droga.encode('ascii', 'ignore'), accion.encode('ascii', 'ignore'), precio.encode('ascii', 'ignore')) )
+            o.write("%s@%s@%s@%s@@%s@%s@%s@@true@\n" % (str(registro).encode('ascii', 'ignore'), name.encode('ascii', 'ignore'), presentacion.encode('ascii', 'ignore'), laboratorio.encode('latin_1', 'ignore'), droga.encode('latin_1', 'ignore'), accion.encode('latin_1', 'ignore'), precio.encode('ascii', 'ignore')) )
         registro = registro + 1
         if registro == 5:
             exit
